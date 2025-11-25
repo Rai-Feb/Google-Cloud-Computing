@@ -1,0 +1,255 @@
+/* --- VARIABLES --- */
+:root {
+    --g-blue: #1a73e8;
+    --g-red: #ea4335;
+    --g-yellow: #fbbc04;
+    --g-green: #34a853;
+    --g-gray: #5f6368;
+    --g-dark: #202124;
+    --bg-light: #ffffff;
+    --bg-gray: #f8f9fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+    /* UBAH DISINI: Plus Jakarta Sans ditaruh di depan agar jadi prioritas */
+    font-family: 'Plus Jakarta Sans', 'Roboto', sans-serif; 
+    background-color: var(--bg-light);
+    color: var(--g-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- UTILITY --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.blue { color: var(--g-blue); }
+.red { color: var(--g-red); }
+.yellow { color: var(--g-yellow); }
+.green { color: var(--g-green); }
+.gray { color: var(--g-gray); }
+
+/* === AUTHENTICATION PAGE (GOOGLE STYLE) === */
+#auth-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+}
+
+.auth-card {
+    width: 450px;
+    padding: 48px 40px 36px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.google-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.auth-header h2 {
+    font-size: 24px;
+    font-weight: 400;
+    padding-bottom: 0;
+    padding-top: 16px;
+    margin: 0;
+}
+
+.auth-header p {
+    font-size: 16px;
+    color: #202124;
+    margin-bottom: 40px;
+}
+
+/* Input Style a la Google */
+.auth-form { text-align: left; }
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 15px;
+    /* Tambahkan padding kanan agar teks tidak menabrak ikon mata */
+    padding-right: 45px; 
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #202124;
+    outline: none;
+    transition: 0.2s;
+    background: transparent;
+    z-index: 1;
+}
+
+.input-group input:focus {
+    border: 2px solid var(--g-blue);
+    padding: 12px 14px;
+    padding-right: 44px; /* Adjust padding padding border width change */
+}
+
+/* Label floating */
+.input-group label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: transparent;
+    font-size: 16px;
+    color: var(--g-gray);
+    font-weight: 400;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+
+/* Logika Floating Label (Naik ke atas saat focus atau ada isinya) */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    left: 10px;
+    background: white;
+    padding: 0 5px;
+    font-size: 12px;
+    color: var(--g-blue);
+    font-weight: 500;
+}
+
+/* --- ICON MATA (SHOW/HIDE) --- */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 15px; /* Sesuaikan vertikal */
+    cursor: pointer;
+    color: var(--g-gray);
+    z-index: 10;
+    font-size: 18px;
+}
+.toggle-password:hover {
+    color: var(--g-dark);
+}
+
+/* Actions */
+.auth-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.auth-actions a {
+    color: var(--g-blue);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.auth-actions a:hover {
+    background: #f5f8fd;
+}
+
+.auth-actions button {
+    background-color: var(--g-blue);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.auth-actions button:hover {
+    background-color: #1765cc;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.3);
+}
+
+.error-msg {
+    color: #d93025;
+    font-size: 12px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* --- DASHBOARD STYLES --- */
+.navbar {
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1), 0 2px 6px 2px rgba(60,64,67,0.05);
+    position: sticky; top: 0; z-index: 100;
+}
+.logo-container { font-size: 22px; display: flex; align-items: center; letter-spacing: -0.5px; font-weight: 700; }
+.logo-text { color: var(--g-gray); font-weight: 400; margin-left: 6px; position: relative; top: -1px;}
+.btn-logout { text-decoration: none; color: var(--g-red); font-weight: 500; font-size: 14px; }
+
+.hero { padding: 80px 0 60px 0; background-color: var(--bg-light); text-align: center; }
+.hero-center { display: flex; flex-direction: column; align-items: center; }
+.pill {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    color: #137333; background: #e6f4ea; padding: 6px 12px; border-radius: 20px;
+    display: inline-block; margin-bottom: 24px; border: 1px solid #ceead6;
+}
+.hero h1 {
+    font-size: 48px; line-height: 1.1; font-weight: 800; letter-spacing: -1.5px;
+    margin-bottom: 24px; color: var(--g-dark); max-width: 800px;
+}
+.hero p { font-size: 18px; color: var(--g-gray); max-width: 650px; margin-bottom: 40px; }
+.hero-buttons { display: flex; justify-content: center; gap: 16px; }
+.btn-primary {
+    display: inline-block; background-color: var(--g-blue); color: white;
+    padding: 12px 28px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 15px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11);
+}
+
+.team-section { padding: 60px 0; background-color: var(--bg-gray); border-top: 1px solid #dadce0; }
+.team-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+.g-card {
+    background: white; border-radius: 12px; padding: 30px;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.1); border: 1px solid #dadce0; border-top-width: 5px;
+    flex: 1 1 280px; max-width: 350px; text-align: left;
+}
+.g-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(60,64,67,0.15); }
+
+.border-blue { border-top-color: var(--g-blue); }
+.border-red { border-top-color: var(--g-red); }
+.border-yellow { border-top-color: var(--g-yellow); }
+
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.photo-frame { width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 3px solid #eee; background: #f0f0f0; }
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+.frame-blue { border-color: var(--g-blue); }
+.frame-red { border-color: var(--g-red); }
+.frame-yellow { border-color: var(--g-yellow); }
+
+.badge { font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
+.badge-blue { color: var(--g-blue); background: #e8f0fe; }
+.badge-red { color: var(--g-red); background: #fce8e6; }
+.badge-yellow { color: #f9ab00; background: #fef7e0; }
+
+.g-card h3 { font-size: 18px; margin-bottom: 4px; font-weight: 600; }
+.nim { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--g-gray); margin-bottom: 15px; }
+.desc { font-size: 13px; color: var(--g-dark); line-height: 1.6; }
+
+footer { padding: 30px 0; border-top: 1px solid #dadce0; background: #fff; text-align: center; font-size: 12px; color: var(--g-gray); }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .auth-card { width: 90%; padding: 30px 20px; }
+    .hero h1 { font-size: 32px; }
+    .team-grid { flex-direction: column; align-items: center; }
+    .g-card { width: 100%; max-width: 100%; }
+}

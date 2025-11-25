@@ -1,0 +1,121 @@
+<script>
+        // --- DATABASE PURA-PURA (Di Browser) ---
+        // Kita simpan user di LocalStorage browser biar kayak database beneran
+        function getUsers() {
+            const users = localStorage.getItem('db_users');
+            if (users) {
+                return JSON.parse(users);
+            } else {
+                // Default user jika belum ada
+                return [{ username: 'admin', password: '123' }];
+            }
+        }
+
+        function saveUser(username, password) {
+            const users = getUsers();
+            users.push({ username, password });
+            localStorage.setItem('db_users', JSON.stringify(users));
+        }
+
+        // --- LOGIKA SHOW/HIDE PASSWORD ---
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                iconElement.classList.remove('fa-eye');
+                iconElement.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                iconElement.classList.remove('fa-eye-slash');
+                iconElement.classList.add('fa-eye');
+            }
+        }
+
+        // Cek sesi login
+        const loggedUser = localStorage.getItem('active_session');
+        if (loggedUser) {
+            enterDashboard(loggedUser);
+        }
+
+        // --- NAVIGASI ---
+        function showRegister() {
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('register-box').style.display = 'block';
+            clearErrors();
+        }
+
+        function showLogin() {
+            document.getElementById('register-box').style.display = 'none';
+            document.getElementById('login-box').style.display = 'block';
+            clearErrors();
+        }
+
+        function clearErrors() {
+            document.getElementById('login-error').innerText = '';
+            document.getElementById('reg-error').innerText = '';
+        }
+
+        // --- LOGIN LOGIC (TANPA SERVER) ---
+        function handleLogin() {
+            const userIn = document.getElementById('login-user').value;
+            const passIn = document.getElementById('login-pass').value;
+            const btn = document.getElementById('btn-login');
+            const err = document.getElementById('login-error');
+
+            if(!userIn || !passIn) return;
+
+            btn.innerText = "Checking...";
+            
+            // Simulasi loading biar keren
+            setTimeout(() => {
+                const db = getUsers();
+                const found = db.find(u => u.username === userIn && u.password === passIn);
+
+                if(found) {
+                    enterDashboard(userIn);
+                } else {
+                    err.innerText = "Username atau Password salah!";
+                    btn.innerText = "Next";
+                }
+            }, 800);
+        }
+
+        // --- REGISTER LOGIC (TANPA SERVER) ---
+        function handleRegister() {
+            const userIn = document.getElementById('reg-user').value;
+            const passIn = document.getElementById('reg-pass').value;
+            const btn = document.getElementById('btn-reg');
+            const err = document.getElementById('reg-error');
+
+            if(!userIn || !passIn) return;
+
+            btn.innerText = "Creating...";
+
+            setTimeout(() => {
+                const db = getUsers();
+                const exist = db.find(u => u.username === userIn);
+
+                if(exist) {
+                    err.innerText = "Username sudah terdaftar!";
+                } else {
+                    saveUser(userIn, passIn);
+                    alert("Akun berhasil dibuat! Silakan Login.");
+                    showLogin();
+                    document.getElementById('login-user').value = userIn;
+                }
+                btn.innerText = "Register";
+            }, 800);
+        }
+
+        function enterDashboard(username) {
+            localStorage.setItem('active_session', username);
+            document.getElementById('auth-page').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('user-display').innerText = "Hi, " + username;
+        }
+
+        function logout() {
+            localStorage.removeItem('active_session');
+            location.reload();
+        }
+    </script>
